@@ -30,17 +30,24 @@ st.write('El numero de filas duplicadas es: {}'.format(raw_data.duplicated().sum
 st.subheader('Estadisticas descriptivas de los datos numericos:')
 st.dataframe(raw_data.describe())
 
-
 st.header('Analisis Exploratorio')
 
 st.header('Modelo vs Precio')
-st.bar_chart(raw_data, x='model', y='price')
+
+boton_barras= st.button('Crear grafico de barras del modelo vs el precio', type='primary')
+
+if boton_barras:
+    st.bar_chart(raw_data, x='model', y='price')
 
 st.header('Histograma de Condiciones vs el año del modelo ')
-fig, ax = plt.subplots() 
-ax.hist(raw_data['model_year'], bins=20)
-sns.histplot(raw_data, x='model_year', hue='condition', multiple='stack', ax=ax)
-st.pyplot(fig)
+
+boton_histograma = st.button('Crear histograma de la condicion de cada año del modelo ', type='primary')
+
+if boton_histograma:
+    fig, ax = plt.subplots() 
+    ax.hist(raw_data['model_year'], bins=20)
+    sns.histplot(raw_data, x='model_year', hue='condition', multiple='stack', ax=ax)
+    st.pyplot(fig)
 
 st.header('Modelo por odometro o cilindraje')
 dimension_selection= st.selectbox(
